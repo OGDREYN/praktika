@@ -1,47 +1,39 @@
 using namespace std;
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
-int main()
+int main() 
 {
     setlocale(0, "");
-    vector<int> sequence; //создаёт вектор который хранит последовательность чисел
     int n;
-    cout << "Введите количество элементов в последовательности: ";
+    cout << "введите количество элементов : ";
     cin >> n;
 
-    cout << "Введите последовательность целых чисел:\n";
-    for (int i = 0; i < n; ++i) {
-        int num;
-        cin >> num;
-        sequence.push_back(num); //добовляет в вектор введённые числа
-    }
-
-    if (sequence.empty())
+    if (n <= 0) 
     {
-        cout << "Последовательность пуста.\n";
+        cout << "введите положительное число элементов.\n";
         return 0;
     }
 
-    int min_num = sequence[0];
-    int min_count = 1;
+    vector<int> sequence(n);  // Создаёт вектор размером n
 
-    for (int i = 1; i < sequence.size(); ++i)
+    cout << "введите последовательность целых чисел:\n";
+    for (int i = 0; i < n; ++i) 
     {
-        if (sequence[i] < min_num)          //исчет еденицы
-        {
-            min_num = sequence[i];
-            min_count = 1;
-        }
-        else if (sequence[i] == min_num)
-        {
-            min_count++;      // счётчик мин чисел
-        }
+        cin >> sequence[i];
     }
 
-    cout << "Минимальное число: " << min_num << endl;
-    cout << "Количество повторений минимального числа: " << min_count << endl;
+    if (sequence.empty()) 
+    {
+        cout << "последовательность пустая.\n";
+        return 0;
+    }
+
+    int min_num = *min_element(sequence.begin(), sequence.end());  // Находит минимальное число
+    int min_count = count(sequence.begin(), sequence.end(), min_num);  // Считает количество повторений минимального числа
+
+    cout << "минимальное число: " << min_num << endl;
+    cout << "количество повторений минимального числа: " << min_count << endl;
 
     return 0;
 }
